@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GitHubUser</string>
+    <string name="example_text">example</string>
+    <string name="search">search</string>
+    <string name="hint">Masukan Username...</string>
+    <string name="detailUserTitle">Detail User</string>
+    <string name="tab_text_1">Following</string>
+    <string name="tab_text_2">Followers</string>
+</resources>
