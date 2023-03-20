@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConf {
 
-    companion object{
+    companion object {
         const val API_KEY = BuildConfig.API_KEY
         fun getApiService(): ApiService {
             val authInterceptor = Interceptor { chain ->

@@ -49,21 +49,21 @@ class FragmentFollow : Fragment() {
             position = it.getInt(ARG_POSITION)
             username = it.getString(ARG_USERNAME)
         }
-        if (position == 1){
+        if (position == 1) {
             MainViewM.follow(username, position)
         } else {
             MainViewM.follow(username, position)
         }
 
-        MainViewM.listFollowing.observe( viewLifecycleOwner, { userList ->
+        MainViewM.listFollowing.observe(viewLifecycleOwner, { userList ->
             setUsers(userList)
         })
 
-        MainViewM.listFollowers.observe( viewLifecycleOwner, { userList ->
+        MainViewM.listFollowers.observe(viewLifecycleOwner, { userList ->
             setUsers(userList)
         })
 
-        MainViewM.isLoading.observe(viewLifecycleOwner,{
+        MainViewM.isLoading.observe(viewLifecycleOwner, {
             showLoading(it)
         })
     }
@@ -72,14 +72,14 @@ class FragmentFollow : Fragment() {
         binding.pbff.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun setUsers(listUser: List<ItemsItem>){
+    private fun setUsers(listUser: List<ItemsItem>) {
         val lUsers = ArrayList<ItemsItem>()
-        for (users in listUser){
+        for (users in listUser) {
             lUsers.addAll(listOf(users))
         }
         val adapter = UserAdapter(lUsers)
         binding.rvff.adapter = adapter
-        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback{
+        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ItemsItem) {
                 showUser(data)
             }
@@ -88,13 +88,13 @@ class FragmentFollow : Fragment() {
     }
 
     private fun showUser(data: ItemsItem) {
-        val iDetailUser = Intent(activity,DetailUser::class.java)
+        val iDetailUser = Intent(activity, DetailUser::class.java)
         iDetailUser.putExtra("username", data.login)
         startActivity(iDetailUser)
     }
 
     companion object {
-        val ARG_USERNAME: String ="username"
+        val ARG_USERNAME: String = "username"
         val ARG_POSITION: String = "position"
     }
 }

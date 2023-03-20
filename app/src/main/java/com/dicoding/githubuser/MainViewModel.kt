@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
         getUsers()
     }
 
-    fun getUsers(q: String = "xthtc"){
+    fun getUsers(q: String = "xthtcBaby") {
         _isLoading.value = true
         val client = ApiConf.getApiService().getUsers(q)
         client.enqueue(object : Callback<UserResponse> {
@@ -37,71 +37,70 @@ class MainViewModel : ViewModel() {
                 response: Response<UserResponse>
             ) {
                 _isLoading.value = false
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     _listUser.value = response.body()?.items
 
-                }else{
+                } else {
                     Log.e(TAG, "onFailure1: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                _isLoading.value =false
+                _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
         })
     }
 
-    fun getUser(username: String){
+    fun getUser(username: String) {
         _isLoading.value = true
         val client = ApiConf.getApiService().getUser(username)
-        client.enqueue(object : Callback<ResponseDetail>{
+        client.enqueue(object : Callback<ResponseDetail> {
             override fun onResponse(
                 call: Call<ResponseDetail>,
                 response: Response<ResponseDetail>
             ) {
                 _isLoading.value = false
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     _user.value = response.body()
-                }else{
+                } else {
                     Log.e(TAG, "onFailureGetuser: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseDetail>, t: Throwable) {
-                _isLoading.value =false
+                _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
         })
     }
 
-    fun follow(username: String?,type: Int?){
+    fun follow(username: String?, type: Int?) {
         _isLoading.value = true
         val method = if (type == 1) "following" else "followers"
-        val client = username?.let { ApiConf.getApiService().getFollow(it,method) }
+        val client = username?.let { ApiConf.getApiService().getFollow(it, method) }
         if (client != null) {
-            client.enqueue(object : Callback<List<ItemsItem>>{
+            client.enqueue(object : Callback<List<ItemsItem>> {
                 override fun onResponse(
                     call: Call<List<ItemsItem>>,
                     response: Response<List<ItemsItem>>
                 ) {
                     _isLoading.value = false
-                    if (response.isSuccessful){
-                        if (type == 1){
+                    if (response.isSuccessful) {
+                        if (type == 1) {
                             _listFollowing.value = response.body()
-                        }
-                        else{
+                        } else {
                             _listFollowers.value = response.body()
                         }
-                    }else{
+                    } else {
                         Log.e(TAG, "onFailure: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
-                    _isLoading.value =false
+                    _isLoading.value = false
                     Log.e(TAG, "onFailure: ${t.message}")
                 }
 
@@ -109,7 +108,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    companion object{
+    companion object {
         private const val TAG = "MainViewModel"
     }
 }
