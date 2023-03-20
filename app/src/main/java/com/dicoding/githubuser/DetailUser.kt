@@ -52,7 +52,7 @@ class DetailUser : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setUser(user: ResponseDetail){
-        binding?.apply {
+        binding.apply {
             tvDetail.text = user.login
             tvFullName.text = user.name
             tvFollowers.text = resources.getString(R.string.followers_template, user.followers)
