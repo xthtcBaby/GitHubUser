@@ -9,11 +9,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
-
-    companion object{
-        private const val TAG = "MainViewModel"
-    }
-
     private val _listUser = MutableLiveData<List<ItemsItem>>()
     val listUser: LiveData<List<ItemsItem>> = _listUser
 
@@ -114,5 +109,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-
+    companion object{
+        private const val TAG = "MainViewModel"
+    }
 }

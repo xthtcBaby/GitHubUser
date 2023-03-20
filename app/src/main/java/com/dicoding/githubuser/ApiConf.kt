@@ -1,21 +1,19 @@
 package com.dicoding.githubuser
 
-import androidx.viewbinding.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConf {
 
-
     companion object{
+        const val API_KEY = BuildConfig.API_KEY
         fun getApiService(): ApiService {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", "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")
+                    .addHeader("Authorization", API_KEY)
                     .build()
                 chain.proceed(requestHeaders)
             }

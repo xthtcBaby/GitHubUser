@@ -60,11 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.pbMain.visibility = View.VISIBLE
-        } else {
-            binding.pbMain.visibility = View.GONE
-        }
+        binding.pbMain.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setUsers(listUser: List<ItemsItem>){

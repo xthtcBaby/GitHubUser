@@ -68,17 +68,8 @@ class FragmentFollow : Fragment() {
         })
     }
 
-    companion object {
-        val ARG_USERNAME: String ="username"
-        val ARG_POSITION: String = "position"
-    }
-
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.pbff.visibility = View.VISIBLE
-        } else {
-            binding.pbff.visibility = View.GONE
-        }
+        binding.pbff.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setUsers(listUser: List<ItemsItem>){
@@ -100,5 +91,10 @@ class FragmentFollow : Fragment() {
         val iDetailUser = Intent(activity,DetailUser::class.java)
         iDetailUser.putExtra("username", data.login)
         startActivity(iDetailUser)
+    }
+
+    companion object {
+        val ARG_USERNAME: String ="username"
+        val ARG_POSITION: String = "position"
     }
 }

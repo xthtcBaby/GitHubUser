@@ -8,12 +8,12 @@ android {
     compileSdk 33
 
     defaultConfig {
+        buildConfigField("String", "API_KEY", "\"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\"")
         applicationId "com.dicoding.githubuser"
         minSdk 33
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
