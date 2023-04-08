@@ -1,4 +1,4 @@
-package com.dicoding.githubuser
+package com.dicoding.githubuser.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubuser.ItemsItem
 import com.dicoding.githubuser.databinding.FragmentFollowBinding
+import androidx.fragment.app.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +24,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class FragmentFollow : Fragment() {
 
-    private lateinit var MainViewM: MainViewModel
     private lateinit var binding: FragmentFollowBinding
     private var username: String? = null
     private var position: Int? = null
@@ -33,7 +33,6 @@ class FragmentFollow : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFollowBinding.inflate(layoutInflater, container, false)
-        MainViewM = ViewModelProvider(this).get(MainViewModel::class.java)
         return binding.root
     }
 
@@ -44,6 +43,11 @@ class FragmentFollow : Fragment() {
         binding.rvff.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
         binding.rvff.addItemDecoration(itemDecoration)
+
+
+        val MainViewM: MainViewModel by viewModels{
+            ViewModelFactory.getInstance(requireActivity())
+        }
 
         arguments?.let {
             position = it.getInt(ARG_POSITION)

@@ -1,21 +1,31 @@
-package com.dicoding.githubuser
+package com.dicoding.githubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubuser.ItemsItem
+import com.dicoding.githubuser.R
 import com.dicoding.githubuser.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val MainViewM by viewModels<MainViewModel>()
+    private val MainViewM by viewModels<MainViewModel>(){
+        ViewModelFactory.getInstance(application)
+    }
+    private var searchQ: String? = null
+    private val mHandler: Handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvUser.addItemDecoration(itemDecoration)
 
+        MainViewM.getUser("smth")
         MainViewM.listUser.observe(this, { userList ->
             setUsers(userList)
         })
@@ -51,12 +62,37 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) MainViewM.getUsers(newText.toString())
+                if (newText != "") {
+                    searchQ = newText
+                    showLoading(true)
+                    mHandler.removeCallbacksAndMessages(null)
+                    mHandler.postDelayed({
+                        if (searchQ != "") MainViewM.getUsers(newText.toString())
+                    },1000)
+                }
+                else{
+                    searchQ = ""
+                    showLoading(false)
+                }
                 return true
             }
 
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.favUser -> {
+                val intentFavoriteUser = Intent(this@MainActivity, FavUserActivity::class.java)
+                startActivity(intentFavoriteUser)
+            }
+            R.id.settings ->{
+                val intentSettings = Intent(this@MainActivity,ThemeActivity::class.java)
+                startActivity(intentSettings)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -1,9 +1,10 @@
-package com.dicoding.githubuser
+package com.dicoding.githubuser.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.githubuser.ItemsItem
 import com.dicoding.githubuser.databinding.UserViewBinding
 
 class UserAdapter(private val listUser: List<ItemsItem>) :
